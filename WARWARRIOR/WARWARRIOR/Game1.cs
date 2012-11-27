@@ -40,6 +40,7 @@ namespace WARWARRIOR
             graphics.PreferredBackBufferWidth = 1920;
             graphics.PreferredBackBufferHeight = 1080;
             graphics.IsFullScreen = true;
+            graphics.SynchronizeWithVerticalRetrace = true;
 
             Content.RootDirectory = "Content";
         }
