@@ -9,8 +9,8 @@ namespace WARWARRIOR
 {
     class HPParticle : Particle
     {
-        private Actor caster;
-        private int spawnTime;
+        protected Actor caster;
+        protected int spawnTime;
 
         public HPParticle(Projectile projectile, int num, Actor caster)
         {
@@ -19,12 +19,12 @@ namespace WARWARRIOR
             this.angle = rnd.Next(0, 361);
             this.velocity = (float)rnd.NextDouble() / 5;
             this.caster = caster;
-            this.spawnTime = (int)Game1.totalMillis + 2500;
+            this.spawnTime = (int)Game1.totalMillis + 5000;
 
-            this.texture = Game1.contentRef.Load<Texture2D>(@"Textures/HP");
+            this.texture = Game1.contentRef.Load<Texture2D>(@"Textures/ShieldParticle");
         }
 
-        private void UpdateColor()
+        protected void UpdateColor()
         {
             float nextColor = (int)(spawnTime - Game1.totalMillis);
 
@@ -36,19 +36,22 @@ namespace WARWARRIOR
 
         public override void Update()
         {
-            for (int i = actors.Count() - 1; i >= 0; i--)
+            if (!(this is ExplosionParticle))
             {
-                if (this.caster != actors[i] &&
-                    !(actors[i] is Particle) &&
-                    this.position.X > actors[i].position.X - actors[i].texture.Width / 2 &&
-                    this.position.Y > actors[i].position.Y - actors[i].texture.Height / 2 &&
-                    this.position.X < actors[i].position.X + actors[i].texture.Width / 2 &&
-                    this.position.Y < actors[i].position.Y + actors[i].texture.Height / 2)
+                for (int i = actors.Count() - 1; i >= 0; i--)
                 {
-                    if (actors[i].HP < 100)
-                        actors[i].HP += 1;
+                    if (this.caster != actors[i] &&
+                        !(actors[i] is Particle) &&
+                        this.position.X > actors[i].position.X - actors[i].texture.Width / 2 &&
+                        this.position.Y > actors[i].position.Y - actors[i].texture.Height / 2 &&
+                        this.position.X < actors[i].position.X + actors[i].texture.Width / 2 &&
+                        this.position.Y < actors[i].position.Y + actors[i].texture.Height / 2)
+                    {
+                        if (actors[i].HP < 100)
+                            actors[i].HP += 1;
 
-                    actors.Remove(this);
+                        actors.Remove(this);
+                    }
                 }
             }
 

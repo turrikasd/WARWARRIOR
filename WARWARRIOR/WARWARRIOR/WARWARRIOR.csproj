@@ -109,6 +109,7 @@
   <ItemGroup>
     <Compile Include="Classes\Actor.cs" />
     <Compile Include="Classes\Enemy.cs" />
+    <Compile Include="Classes\ExplosionParticle.cs" />
     <Compile Include="Classes\HPParticle.cs" />
     <Compile Include="Classes\InputManager.cs" />
     <Compile Include="Classes\Particle.cs" />

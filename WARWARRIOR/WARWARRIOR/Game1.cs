@@ -28,8 +28,7 @@ namespace WARWARRIOR
         public static double totalMillis;
 
         Texture2D startTexture;
-
-        Actor player;
+        Texture2D backgroundTexture;
 
         public Game1()
         {
@@ -47,7 +46,7 @@ namespace WARWARRIOR
         {
             gameState = GAMESTATE.START_SCREEN;
             contentRef = Content;
-            player = new Player();
+            new Player();
 
             base.Initialize();
         }
@@ -62,6 +61,7 @@ namespace WARWARRIOR
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             startTexture = Content.Load<Texture2D>(@"Textures/StartTexture");
+            backgroundTexture = Content.Load<Texture2D>(@"Textures/Background");
         }
 
         /// <summary>
@@ -104,11 +104,12 @@ namespace WARWARRIOR
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
             spriteBatch.Begin();
 
             if (gameState == GAMESTATE.PLAYING)
             {
+                spriteBatch.Draw(backgroundTexture, Vector2.Zero, Color.White);
                 for (int i = 0; i < Actor.actors.Count(); i++)
                 {
                     Actor.actors[i].Draw(spriteBatch);

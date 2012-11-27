@@ -13,6 +13,7 @@ namespace WARWARRIOR
         public static List<Actor> actors;
 
         public Texture2D texture;
+        public Texture2D shieldTexture;
         public Vector2 position;
         public float angle;
         public float velocity;
@@ -35,6 +36,14 @@ namespace WARWARRIOR
             }
         }
 
+        public Vector2 RelShieldOrigin
+        {
+            get
+            {
+                return new Vector2(shieldTexture.Width / 2, shieldTexture.Height / 2);
+            }
+        }
+
         static Actor()
         {
             actors = new List<Actor>();
@@ -45,6 +54,9 @@ namespace WARWARRIOR
             actors.Add(this);
             HP = 100;
             color = Color.White;
+
+            if (!(this is Particle))
+                shieldTexture = Game1.contentRef.Load<Texture2D>(@"Textures/Shield");
         }
 
         public virtual void Move(float amount)
@@ -77,10 +89,17 @@ namespace WARWARRIOR
 
         protected virtual void CalculateMovement()
         {
+            bool doesCollide = false;
+
             Vector2 newPos = position + new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)) * velocity;
             Vector2 newPosX = position + new Vector2((float)Math.Cos(angle), 0.0f) * velocity;
             Vector2 newPosY = position + new Vector2(0.0f, (float)Math.Sin(angle)) * velocity;
 
+            CheckFinalCollision(newPos, newPosX, newPosY);
+        }
+
+        protected virtual void CheckFinalCollision(Vector2 newPos, Vector2 newPosX, Vector2 newPosY)
+        {
             if (newPos.X > 0 + texture.Width / 2 && newPos.X < 800 - texture.Width / 2 &&
                 newPos.Y > 0 + texture.Height / 2 && newPos.Y < 480 - texture.Height / 2)
                 position += new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)) * velocity;
@@ -104,7 +123,10 @@ namespace WARWARRIOR
         {
             CheckIfDead();
 
-            NormalizeVelocity();
+            if (!(this is Particle))
+            {
+                NormalizeVelocity();
+            }
 
             CalculateMovement();
         }
@@ -116,7 +138,12 @@ namespace WARWARRIOR
 
         public virtual void Draw(SpriteBatch SB)
         {
-            SB.Draw(texture, position, null, color, angle, RelOrigin, HP / 100.0f, SpriteEffects.None, 0.5f);
+            SB.Draw(texture, position, null, color, angle + 1.6f, RelOrigin, 1.0f, SpriteEffects.None, 0.5f);
+
+            if (!(this is Particle) && HP > 25)
+            {
+                SB.Draw(shieldTexture, position, null, color, angle + 1.6f, RelShieldOrigin, HP / 75.0f, SpriteEffects.None, 0.6f);
+            }
         }
     }
 }

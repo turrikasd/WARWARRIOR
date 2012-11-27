@@ -14,10 +14,14 @@ namespace WARWARRIOR
         public Projectile(Actor owner)
         {
             this.owner = owner;
-            texture = Game1.contentRef.Load<Texture2D>(@"Textures/Particle");
             position = owner.position;
             angle = owner.angle;
-            velocity = 5.0f;
+            velocity = 10.0f;
+
+            if (owner is Player)
+                texture = Game1.contentRef.Load<Texture2D>(@"Textures/PlayerFire");
+            else
+                texture = Game1.contentRef.Load<Texture2D>(@"Textures/EnemyFire");
         }
 
         protected override void CalculateMovement()
@@ -44,10 +48,21 @@ namespace WARWARRIOR
                 {
                     actors[i].HP -= 25;
 
-                    for (int ii = 0; ii < 25; ii++)
+                    if (actors[i].HP + 25 > 25)
                     {
-                        new HPParticle(this, ii, actors[i]);
+                        for (int ii = 0; ii < 25; ii++)
+                        {
+                            new HPParticle(this, ii, actors[i]);
+                        }
                     }
+                    else
+                    {
+                        for (int ii = 0; ii < 500; ii++)
+                        {
+                            new ExplosionParticle(this, ii, actors[i]);
+                        }
+                    }
+                    
 
                     actors.Remove(this);
                     break;

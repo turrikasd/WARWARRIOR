@@ -59,13 +59,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Textures\Particle.png">
-      <Name>Particle</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Textures\Enemy.png">
       <Name>Enemy</Name>
       <Importer>TextureImporter</Importer>
@@ -73,8 +66,38 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Textures\HP.png">
-      <Name>HP</Name>
+    <Compile Include="Textures\EnemyFire.png">
+      <Name>EnemyFire</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Textures\ExplosionParticle.png">
+      <Name>ExplosionParticle</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Textures\Background.png">
+      <Name>Background</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Content Include="Textures\Missile.png">
+      <Name>Missile</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Content>
+    <Compile Include="Textures\PlayerFire.png">
+      <Name>PlayerFire</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Textures\ShieldParticle.png">
+      <Name>ShieldParticle</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Textures\Shield.png">
+      <Name>Shield</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
