@@ -37,6 +37,8 @@ namespace WARWARRIOR
         {
             graphics = new GraphicsDeviceManager(this);
             graphics.PreferMultiSampling = true;
+            graphics.PreferredBackBufferWidth = 1920;
+            graphics.PreferredBackBufferHeight = 1080;
             graphics.IsFullScreen = true;
 
             Content.RootDirectory = "Content";
