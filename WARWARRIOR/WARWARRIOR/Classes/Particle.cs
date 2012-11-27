@@ -13,8 +13,8 @@ namespace WARWARRIOR
         {
             Vector2 newPos = position + new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)) * velocity;
 
-            if (newPos.X < 0 + texture.Width / 2 || newPos.X > 800 - texture.Width / 2 ||
-                newPos.Y < 0 + texture.Height / 2 || newPos.Y > 480 - texture.Height / 2)
+            if (newPos.X < 0 + texture.Width / 2 || newPos.X > Game1.Width - texture.Width / 2 ||
+                newPos.Y < 0 + texture.Height / 2 || newPos.Y > Game1.Height - texture.Height / 2)
                 actors.Remove(this);
 
             base.CalculateMovement();

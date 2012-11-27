@@ -27,12 +27,18 @@ namespace WARWARRIOR
         public static double totalSeconds;
         public static double totalMillis;
 
+        public static int Width;
+        public static int Height;
+
         Texture2D startTexture;
         Texture2D backgroundTexture;
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
+            graphics.PreferMultiSampling = true;
+            graphics.IsFullScreen = true;
+
             Content.RootDirectory = "Content";
         }
 
@@ -44,6 +50,9 @@ namespace WARWARRIOR
         /// </summary>
         protected override void Initialize()
         {
+            Width = graphics.GraphicsDevice.Viewport.Width;
+            Height = graphics.GraphicsDevice.Viewport.Height;
+
             gameState = GAMESTATE.START_SCREEN;
             contentRef = Content;
             new Player();
@@ -81,7 +90,8 @@ namespace WARWARRIOR
         protected override void Update(GameTime gameTime)
         {
             // Allows the game to exit
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed ||
+                Keyboard.GetState().IsKeyDown(Keys.Escape))
                 this.Exit();
 
             totalSeconds = gameTime.TotalGameTime.TotalSeconds;
@@ -109,7 +119,7 @@ namespace WARWARRIOR
 
             if (gameState == GAMESTATE.PLAYING)
             {
-                spriteBatch.Draw(backgroundTexture, Vector2.Zero, Color.White);
+                spriteBatch.Draw(backgroundTexture, new Rectangle(0, 0, Width, Height), Color.White);
                 for (int i = 0; i < Actor.actors.Count(); i++)
                 {
                     Actor.actors[i].Draw(spriteBatch);
@@ -118,7 +128,7 @@ namespace WARWARRIOR
 
             else
             {
-                spriteBatch.Draw(startTexture, new Rectangle(0, 0, graphics.GraphicsDevice.Viewport.Width, graphics.GraphicsDevice.Viewport.Height), Color.White);
+                spriteBatch.Draw(startTexture, new Rectangle(0, 0, Width, Height), Color.White);
             }
 
             spriteBatch.End();

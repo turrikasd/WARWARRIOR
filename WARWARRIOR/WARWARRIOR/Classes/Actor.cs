@@ -100,16 +100,16 @@ namespace WARWARRIOR
 
         protected virtual void CheckFinalCollision(Vector2 newPos, Vector2 newPosX, Vector2 newPosY)
         {
-            if (newPos.X > 0 + texture.Width / 2 && newPos.X < 800 - texture.Width / 2 &&
-                newPos.Y > 0 + texture.Height / 2 && newPos.Y < 480 - texture.Height / 2)
+            if (newPos.X > 0 + texture.Width / 2 && newPos.X < Game1.Width - texture.Width / 2 &&
+                newPos.Y > 0 + texture.Height / 2 && newPos.Y < Game1.Height - texture.Height / 2)
                 position += new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)) * velocity;
 
-            else if (newPosX.X > 0 + texture.Width / 2 && newPosX.X < 800 - texture.Width / 2 &&
-                     newPosX.Y > 0 + texture.Height / 2 && newPosX.Y < 480 - texture.Height / 2)
+            else if (newPosX.X > 0 + texture.Width / 2 && newPosX.X < Game1.Width - texture.Width / 2 &&
+                     newPosX.Y > 0 + texture.Height / 2 && newPosX.Y < Game1.Height - texture.Height / 2)
                 position += new Vector2((float)Math.Cos(angle), 0.0f) * velocity;
 
-            else if (newPosY.X > 0 + texture.Width / 2 && newPosY.X < 800 - texture.Width / 2 &&
-                     newPosY.Y > 0 + texture.Height / 2 && newPosY.Y < 480 - texture.Height / 2)
+            else if (newPosY.X > 0 + texture.Width / 2 && newPosY.X < Game1.Width - texture.Width / 2 &&
+                     newPosY.Y > 0 + texture.Height / 2 && newPosY.Y < Game1.Height - texture.Height / 2)
                 position += new Vector2(0.0f, (float)Math.Sin(angle)) * velocity;
         }
 
