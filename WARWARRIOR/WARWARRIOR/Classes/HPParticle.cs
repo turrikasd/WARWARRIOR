@@ -10,6 +10,7 @@ namespace WARWARRIOR
     class HPParticle : Particle
     {
         private Actor caster;
+        private int spawnTime;
 
         public HPParticle(Projectile projectile, int num, Actor caster)
         {
@@ -18,8 +19,19 @@ namespace WARWARRIOR
             this.angle = rnd.Next(0, 361);
             this.velocity = (float)rnd.NextDouble() / 5;
             this.caster = caster;
+            this.spawnTime = (int)Game1.totalMillis + 2500;
 
             this.texture = Game1.contentRef.Load<Texture2D>(@"Textures/HP");
+        }
+
+        private void UpdateColor()
+        {
+            float nextColor = (int)(spawnTime - Game1.totalMillis);
+
+            if (nextColor <= 0.0f)
+                actors.Remove(this);
+            else
+                color = new Color(nextColor / 1000, nextColor / 1000, nextColor / 1000, nextColor / 1000);
         }
 
         public override void Update()
@@ -39,6 +51,8 @@ namespace WARWARRIOR
                     actors.Remove(this);
                 }
             }
+
+            UpdateColor();
 
             base.Update();
         }

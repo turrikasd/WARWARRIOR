@@ -21,8 +21,11 @@ namespace WARWARRIOR
         public static GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        GAMESTATE gameState;
+        public static GAMESTATE gameState;
         double lastEnemy;
+
+        public static double totalSeconds;
+        public static double totalMillis;
 
         Texture2D startTexture;
 
@@ -81,11 +84,14 @@ namespace WARWARRIOR
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
-            gameState = InputManager.HandleInput(gameState);
+            totalSeconds = gameTime.TotalGameTime.TotalSeconds;
+            totalMillis = gameTime.TotalGameTime.TotalMilliseconds;
+
+            InputManager.HandleInput(gameState);
 
             if (gameState == GAMESTATE.PLAYING && (lastEnemy < gameTime.TotalGameTime.TotalSeconds))
             {
-                Actor.actors.Add(new Enemy());
+                new Enemy();
                 lastEnemy = gameTime.TotalGameTime.TotalSeconds + 10.0f;
             }
 
@@ -116,6 +122,13 @@ namespace WARWARRIOR
 
             spriteBatch.End();
             base.Draw(gameTime);
+        }
+
+        public static void ResetGame()
+        {
+            gameState = GAMESTATE.START_SCREEN;
+            Actor.actors.Clear();
+            new Player();
         }
     }
 }

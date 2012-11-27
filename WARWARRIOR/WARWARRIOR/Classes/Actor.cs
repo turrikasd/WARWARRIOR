@@ -17,6 +17,7 @@ namespace WARWARRIOR
         public float angle;
         public float velocity;
         public float HP;
+        public Color color;
 
         public Vector2 Origin
         {
@@ -43,6 +44,7 @@ namespace WARWARRIOR
         {
             actors.Add(this);
             HP = 100;
+            color = Color.White;
         }
 
         public virtual void Move(float amount)
@@ -109,12 +111,12 @@ namespace WARWARRIOR
 
         public virtual void Fire()
         {
-            actors.Add(new Projectile(this));
+            new Projectile(this);
         }
 
         public virtual void Draw(SpriteBatch SB)
         {
-            SB.Draw(texture, position, null, Color.White, angle, RelOrigin, HP / 100.0f, SpriteEffects.None, 0.5f);
+            SB.Draw(texture, position, null, color, angle, RelOrigin, HP / 100.0f, SpriteEffects.None, 0.5f);
         }
     }
 }

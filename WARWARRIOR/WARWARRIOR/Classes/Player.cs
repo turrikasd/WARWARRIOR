@@ -17,5 +17,13 @@ namespace WARWARRIOR
             position = new Vector2(250, 250);
             player = this;
         }
+
+        protected override void CheckIfDead()
+        {
+            if (HP <= 0)
+            {
+                Game1.ResetGame();
+            }
+        }
     }
 }

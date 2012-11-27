@@ -5,7 +5,7 @@ using System.Text;
 
 namespace WARWARRIOR
 {
-    enum GAMESTATE
+    public enum GAMESTATE
     {
         START_SCREEN,
         PLAYING,

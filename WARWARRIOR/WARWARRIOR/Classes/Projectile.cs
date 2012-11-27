@@ -46,10 +46,11 @@ namespace WARWARRIOR
 
                     for (int ii = 0; ii < 25; ii++)
                     {
-                        actors.Add(new HPParticle(this, ii, actors[i]));
+                        new HPParticle(this, ii, actors[i]);
                     }
 
                     actors.Remove(this);
+                    break;
                 }
             }
 

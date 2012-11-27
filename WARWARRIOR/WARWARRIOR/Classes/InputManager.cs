@@ -15,10 +15,8 @@ namespace WARWARRIOR
             keysDown = new List<Keys>();
         }
 
-        public static GAMESTATE HandleInput(GAMESTATE gameState)
+        public static void HandleInput(GAMESTATE gameState)
         {
-            GAMESTATE newGameState = gameState;
-
             for (int i = keysDown.Count() - 1; i >= 0; i--)
             {
                 if (Keyboard.GetState().IsKeyUp(keysDown[i]))
@@ -28,9 +26,9 @@ namespace WARWARRIOR
             if (Keyboard.GetState().IsKeyDown(Keys.Enter) && !keysDown.Contains(Keys.Enter))
             {
                 if (gameState == GAMESTATE.PLAYING)
-                    newGameState = GAMESTATE.PAUSED;
+                    Game1.gameState = GAMESTATE.PAUSED;
                 else
-                    newGameState = GAMESTATE.PLAYING;
+                    Game1.gameState = GAMESTATE.PLAYING;
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.Space) && !keysDown.Contains(Keys.Space))
@@ -41,13 +39,12 @@ namespace WARWARRIOR
                 keysDown.Add(k);
             }
 
-            if (newGameState == GAMESTATE.PLAYING)
-                Playing();
-
-            return newGameState;
+            if (gameState == GAMESTATE.PLAYING)
+                if (!Playing())
+                    Game1.gameState = GAMESTATE.START_SCREEN;
         }
 
-        static private void Playing()
+        static private bool Playing()
         {
             if (keysDown.Contains(Keys.Up))
                 Player.player.Move(0.25f);
@@ -64,9 +61,14 @@ namespace WARWARRIOR
 
             for (int i = Actor.actors.Count() - 1; i >= 0; i--)
             {
+                if (Game1.gameState == GAMESTATE.START_SCREEN)
+                    return false;
+
                 if (i < Actor.actors.Count())
                     Actor.actors[i].Update();
             }
+
+            return true;
         }
     }
 }
